@@ -1,0 +1,20 @@
+version: '2.4'
+services:
+  api:
+    build: .
+    command: npm run start
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "3030:3030"
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgres://todoapp:1q2w3e4r@postgres/todos
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_USER=todoapp
+      - POSTGRES_PASSWORD=1q2w3e4r
+      - POSTGRES_DB=todos
